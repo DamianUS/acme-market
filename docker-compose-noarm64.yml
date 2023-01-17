@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  mongodb:
+    image: bitnami/mongodb:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MONGODB_USERNAME=myUser
+      - MONGODB_PASSWORD=myUserPassword
+      - MONGODB_DATABASE=ACME-Market
+    networks:
+      - miss2
+  web:
+      build:
+        context: ./
+        target: dev
+      volumes:
+        - .:/src
+        - node_modules:/src/node_modules
+      command: > 
+        sh -c "pwd && npm install && /wait && npm start"
+      ports:
+        - "3000:3000"
+        - "8080:8080"
+        - "9229:9229"
+      depends_on:
+        - mongodb
+      environment:
+        NODE_ENV: development
+        DEBUG: MISS2-Backend:*
+        # WAIT_HOSTS: mongodb:27017
+        # WAIT_HOSTS_TIMEOUT: 300
+        # WAIT_SLEEP_INTERVAL: 3
+        # WAIT_HOST_CONNECT_TIMEOUT: 5
+      env_file:
+        - .env.docker
+      networks:
+        - miss2
+networks:
+  miss2:
+    driver: bridge
+volumes:
+  mongodb_data:
+    driver: local
+  node_modules:

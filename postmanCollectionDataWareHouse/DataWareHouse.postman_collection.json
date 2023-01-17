@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "88246f84-89a6-42b9-a7ec-2919bb93b30a",
+		"name": "DataWareHouse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL INDICATORS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dataWareHouse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dataWareHouse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST REBUILDPERIOD",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dataWareHouse?rebuildPeriod=*/30 * * * * *",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dataWareHouse"
+					],
+					"query": [
+						{
+							"key": "rebuildPeriod",
+							"value": "*/30 * * * * *"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET LAST INDICATORS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dataWareHouse/latest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dataWareHouse",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
