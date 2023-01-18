@@ -1,10 +1,10 @@
 'use strict'
 
-exports.store_json_insertMany = function (req, res) {
+const storeJsonInsertMany = (req, res) => {
   let mongooseModel = null
   let sourceFile = null
   let response = ''
-
+  /*
   if (req.query.mongooseModel && req.query.sourceFile) {
     mongooseModel = req.query.mongooseModel
     sourceFile = req.query.sourceFile
@@ -31,9 +31,12 @@ exports.store_json_insertMany = function (req, res) {
     console.log(response)
     res.send(response)
   }
+  */
 }
 
-exports.store_json_fs = function (req, res) {
+const storeJsonFs = (req, res) => {
+  //stream to mongo db no parece tener versión para es6, es de hace 4 años
+  /*
   const streamToMongoDB = require('stream-to-mongo-db').streamToMongoDB
   const JSONStream = require('JSONStream')
   const fs = require('fs')
@@ -79,4 +82,7 @@ exports.store_json_fs = function (req, res) {
     console.log(response)
     res.send(response)
   }
+  */
 }
+
+export { storeJsonInsertMany, storeJsonFs }

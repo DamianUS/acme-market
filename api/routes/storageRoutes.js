@@ -1,6 +1,7 @@
 'use strict'
-module.exports = function (app) {
-  const storage = require('../controllers/storageController')
+import { storeJsonInsertMany, storeJsonFs } from '../controllers/StorageController.js'
+
+export default function (app) {
 
   // Data Storage routes
   /*
@@ -16,7 +17,7 @@ module.exports = function (app) {
   * Sample 2 (test):   http://localhost:8080/v1/storage/insertMany?dbURL=mongodb://myUser:myUserPassword@localhost:27017/ACME-Market&mongooseModel=Test&sourceFile=c:/temp/many_npm.json
   */
   app.route('/v1/storage/insertMany')
-    .post(storage.store_json_insertMany)
+    .post(storeJsonInsertMany)
 
   /**
    * Put a large json with documents from a file into a collection of mongoDB
@@ -33,5 +34,5 @@ module.exports = function (app) {
    * Sample 2 (test):   http://localhost:8080/v1/storage/fs?dbURL=mongodb://myUser:myUserPassword@localhost:27017/ACME-Market&collection=test&batchSize=100&parseString=rows.*&sourceFile=c:\temp\many_npm.json
   */
   app.route('/v1/storage/fs')
-    .post(storage.store_json_fs)
+    .post(storeJsonFs)
 }

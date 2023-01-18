@@ -1,14 +1,14 @@
 {
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.4",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.18.3",
-    "cron": "^1.6.0",
-    "dateformat": "^3.0.3",
+    "cron": "^2.2.0",
+    "dateformat": "^5.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.16.4",
-    "mongoose": "^5.9.1",
-    "nanoid": "^3.2.1",
+    "mongoose": "^6.8.4",
+    "nanoid": "^4.0.0",
     "stream-to-mongo-db": "^1.6.0"
   },
   "devDependencies": {
@@ -22,5 +22,6 @@
   "scripts": {
     "start": "nodemon app.js",
     "docker_debug": "nodemon --inspect=0.0.0.0:9229 app.js"
-  }
+  },
+  "type": "module"
 }

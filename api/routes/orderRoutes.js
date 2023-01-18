@@ -1,10 +1,11 @@
 'use strict'
-module.exports = function (app) {
-  const order = require('../controllers/orderController')
+import { listOrders, listMyOrders, createOrderV0, createOrder, readOrder, updateOrderV0, updateOrder, deleteOrderV0, deleteOrder, searchOrders } from '../controllers/OrderController.js' 
+
+export default function (app) {
 
   app.route('/v0/orders')
-    .get(order.list_all_orders)
-    .post(order.create_an_order_v0)
+    .get(listOrders)
+    .post(createOrderV0)
 
   /**
    * Post an order
@@ -16,7 +17,7 @@ module.exports = function (app) {
   */
   app.route('/v1/orders')
   // .get(order.list_all_orders)
-    .post(order.create_an_order)
+    .post(createOrder)
 
   /**
    * Search engine for orders
@@ -35,12 +36,12 @@ module.exports = function (app) {
    * @param {string} pageSize
   */
   app.route('/v1/orders/search')
-    .get(order.search_orders)
+    .get(searchOrders)
 
   app.route('/v0/orders/:orderId')
-    .get(order.read_an_order)
-    .put(order.update_an_order_v0)
-    .delete(order.delete_an_order_v0)
+    .get(readOrder)
+    .put(updateOrderV0)
+    .delete(deleteOrderV0)
 
   /**
    * Delete an order if it is not delivered
@@ -56,9 +57,9 @@ module.exports = function (app) {
    * @url /v1/orders/:orderId
   */
   app.route('/v1/orders/:orderId')
-    .get(order.read_an_order)
-    .put(order.update_an_order)
-    .delete(order.delete_an_order)
+    .get(readOrder)
+    .put(updateOrder)
+    .delete(deleteOrder)
 
   /**
   * Get my orders.
@@ -69,5 +70,5 @@ module.exports = function (app) {
   * @url /v1/myorders/ ¿:actorId?
   */
   app.route('/v1/myorders')
-    .get(order.list_my_orders) // add ownership for CONSUMER
+    .get(listMyOrders) // add ownership for CONSUMER
 }

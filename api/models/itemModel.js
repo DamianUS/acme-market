@@ -1,53 +1,10 @@
 'use strict'
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-const customAlphabet = require('nanoid').customAlphabet
+import mongoose from 'mongoose'
+import { customAlphabet } from 'nanoid'
+import { schema as commentSchema } from './CommentModel.js'
 const skuGenerator = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 6)
 
-const CategorySchema = new Schema({
-  name: {
-    type: String,
-    required: 'Kindly enter the name of the Category'
-  },
-  description: {
-    type: String,
-    required: 'Kindly enter the description of the Category'
-  },
-  picture: {
-    data: Buffer, contentType: String
-  },
-  created: {
-    type: Date,
-    default: Date.now
-  }
-}, { strict: false })
-
-const CommentSchema = new Schema({
-  title: {
-    type: String,
-    required: 'Kindly enter the title of the comment'
-  },
-  author: {
-    type: String
-  },
-  commentText: {
-    type: String,
-    required: 'Kindly enter your comments'
-  },
-  stars: {
-    type: Number,
-    required: 'Kindly enter the stars',
-    min: 0,
-    max: 5
-  },
-  created: {
-    type: Date,
-    default: Date.now
-  }
-}, { strict: false })
-
-const ItemSchema = new Schema({
+const itemSchema = new mongoose.Schema({
   sku: {
     type: String,
     unique: true,
@@ -85,25 +42,27 @@ const ItemSchema = new Schema({
     max: 5
   },
   category: {
-    type: Schema.Types.ObjectId,
-    ref: 'Categories'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
   },
-  comments: [CommentSchema],
+  comments: [commentSchema],
   created: {
     type: Date,
     default: Date.now
   }
 }, { strict: false })
 
-ItemSchema.index({ category: 1, price: 1 }) // 1 ascending,  -1 descending
-ItemSchema.index({ name: 'text', description: 'text', sku: 'text' })
+itemSchema.index({ category: 1, price: 1 }) // 1 ascending,  -1 descending
+itemSchema.index({ name: 'text', description: 'text', sku: 'text' })
 
 // Execute before each item.save() call
-ItemSchema.pre('save', function (callback) {
+itemSchema.pre('save', function (callback) {
   const newItem = this
   newItem.sku = skuGenerator()
   callback()
 })
 
-module.exports = mongoose.model('Items', ItemSchema)
-module.exports = mongoose.model('Categories', CategorySchema)
+const model = mongoose.model('Item', itemSchema)
+
+export const schema = model.schema
+export default model

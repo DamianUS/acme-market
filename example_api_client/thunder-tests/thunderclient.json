@@ -467,7 +467,7 @@
     "method": "POST",
     "sortNum": 50000,
     "created": "2022-02-18T10:29:08.519Z",
-    "modified": "2022-02-18T10:52:10.741Z",
+    "modified": "2023-01-18T20:45:45.136Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -484,10 +484,13 @@
         "isDisabled": true
       }
     ],
+    "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n\t\"name\": \"AdminName\",\n\t\"surname\": \"AdminSurname\",\n\t\"email\": \"admin@fakemail.com\",\n\t\"password\": \"mypass\",\n\t\"phone\": \"+34612345670\",\n\t\"role\": \"ADMINISTRATOR\",\n\t\"address\": \"myAddress\"\n}"
-    }
+      "raw": "{\n\t\"name\": \"AdminName\",\n\t\"surname\": \"AdminSurname\",\n\t\"email\": \"admin@fakemail.com\",\n\t\"password\": \"mypass\",\n\t\"phone\": \"+34612345670\",\n\t\"role\": \"ADMINISTRATOR\",\n\t\"address\": \"myAddress\"\n}",
+      "form": []
+    },
+    "tests": []
   },
   {
     "_id": "ddd0387c-b102-4fe9-8426-3ebef3c181d6",

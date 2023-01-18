@@ -1,10 +1,8 @@
 'use strict'
+import Order from '../models/OrderModel.js'
 
-const mongoose = require('mongoose')
-const Order = mongoose.model('Orders')
-
-exports.list_all_orders = function (req, res) {
-  Order.find({}, function (err, order) {
+const listOrders = (req, res) => {
+  Order.find({}, (err, order) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -13,8 +11,8 @@ exports.list_all_orders = function (req, res) {
   })
 }
 
-exports.list_my_orders = function (req, res) {
-  Order.find({}, function (err, orders) {
+const listMyOrders = (req, res) => {
+  Order.find({}, (err, orders) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -23,10 +21,9 @@ exports.list_my_orders = function (req, res) {
   })
 }
 
-exports.create_an_order_v0 = function (req, res) {
+const createOrderV0 = (req, res) => {
   const newOrder = new Order(req.body)
-
-  newOrder.save(function (error, order) {
+  newOrder.save((error, order) => {
     if (error) {
       res.send(error)
     } else {
@@ -35,12 +32,11 @@ exports.create_an_order_v0 = function (req, res) {
   })
 }
 
-exports.create_an_order = function (req, res) {
+const createOrder = (req, res) => {
   // Check that user is a Customer and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
   const newOrder = new Order(req.body)
-
-  newOrder.save(function (err, order) {
+  newOrder.save((err, order) => {
     if (err) {
       if (err.name === 'ValidationError') {
         res.status(422).send(err)
@@ -53,7 +49,7 @@ exports.create_an_order = function (req, res) {
   })
 }
 
-exports.search_orders = function (req, res) {
+const searchOrders = (req, res) => {
   // if clerkId is null, i.e. parameter is not in the URL, the search retrieves orders not assined to any clerk
   // else, the search retrieves orders assined to the specified clerk
   const query = {}
@@ -99,7 +95,7 @@ exports.search_orders = function (req, res) {
     .skip(skip)
     .limit(limit)
     .lean()
-    .exec(function (err, order) {
+    .exec((err, order) => {
       console.log('Start searching orders')
       if (err) {
         res.status(500).send(err)
@@ -110,8 +106,8 @@ exports.search_orders = function (req, res) {
     })
 }
 
-exports.read_an_order = function (req, res) {
-  Order.findById(req.params.orderId, function (err, order) {
+const readOrder = (req, res) => {
+  Order.findById(req.params.orderId, (err, order) => {
     if (err) {
       res.send(err)
     } else {
@@ -120,12 +116,12 @@ exports.read_an_order = function (req, res) {
   })
 }
 
-exports.update_an_order_v0 = function (req, res) {
-  Order.findById(req.params.orderId, function (err, order) {
+const updateOrderV0 = (req, res) => {
+  Order.findById(req.params.orderId, (err, order) => {
     if (err) {
       res.send(err)
     } else {
-      Order.findOneAndUpdate({ _id: req.params.orderId }, req.body, { new: true }, function (err, order) {
+      Order.findOneAndUpdate({ _id: req.params.orderId }, req.body, { new: true }, (err, order) => {
         if (err) {
           res.send(err)
         } else {
@@ -136,13 +132,13 @@ exports.update_an_order_v0 = function (req, res) {
   })
 }
 
-exports.update_an_order = function (req, res) {
+const updateOrder = (req, res) => {
   // Check if the order has been previously assigned or not
   // Assign the order to the proper clerk that is requesting the assigment
   // when updating delivery moment it must be checked the clerk assignment
   // and to check if it is the proper clerk and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  Order.findById(req.params.orderId, function (err, order) {
+  Order.findById(req.params.orderId, (err, order) => {
     if (err) {
       if (err.name === 'ValidationError') {
         res.status(422).send(err)
@@ -150,7 +146,7 @@ exports.update_an_order = function (req, res) {
         res.status(500).send(err)
       }
     } else {
-      Order.findOneAndUpdate({ _id: req.params.orderId }, req.body, { new: true }, function (err, order) {
+      Order.findOneAndUpdate({ _id: req.params.orderId }, req.body, { new: true }, (err, order) => {
         if (err) {
           res.status(500).send(err)
         } else {
@@ -161,10 +157,10 @@ exports.update_an_order = function (req, res) {
   })
 }
 
-exports.delete_an_order_v0 = function (req, res) {
+const deleteOrderV0 = (req, res) => {
   Order.deleteOne({
     _id: req.params.orderId
-  }, function (err, order) {
+  }, (err, order) => {
     if (err) {
       res.send(err)
     } else {
@@ -173,13 +169,13 @@ exports.delete_an_order_v0 = function (req, res) {
   })
 }
 
-exports.delete_an_order = function (req, res) {
+const deleteOrder = (req, res) => {
   // Check if the order were delivered or not and delete it or not accordingly
   // Check if the user is the proper customer that posted the order and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
   Order.deleteOne({
     _id: req.params.orderId
-  }, function (err, order) {
+  }, (err, order) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -187,3 +183,5 @@ exports.delete_an_order = function (req, res) {
     }
   })
 }
+
+export { listOrders, listMyOrders, createOrderV0, createOrder, readOrder, updateOrderV0, updateOrder, deleteOrderV0, deleteOrder, searchOrders }

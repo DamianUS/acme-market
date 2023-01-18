@@ -1,13 +1,11 @@
 
-const async = require('async')
-const mongoose = require('mongoose')
-const DataWareHouse = mongoose.model('DataWareHouse')
-const Orders = mongoose.model('Orders')
+import async from 'async'
+import cron from 'cron'
+import DataWareHouse from '../models/DataWareHouseModel.js'
+import Order from '../models/OrderModel.js'
 
-exports.list_all_indicators = function (req, res) {
-  console.log('Requesting indicators')
-
-  DataWareHouse.find().sort('-computationMoment').exec(function (err, indicators) {
+const listIndicators = (req, res) => {
+  DataWareHouse.find().sort('-computationMoment').exec((err, indicators) => {
     if (err) {
       res.send(err)
     } else {
@@ -16,8 +14,8 @@ exports.list_all_indicators = function (req, res) {
   })
 }
 
-exports.last_indicator = function (req, res) {
-  DataWareHouse.find().sort('-computationMoment').limit(1).exec(function (err, indicators) {
+const lastIndicator = (req, res) => {
+  DataWareHouse.find().sort('-computationMoment').limit(1).exec((err, indicators) => {
     if (err) {
       res.send(err)
     } else {
@@ -25,30 +23,28 @@ exports.last_indicator = function (req, res) {
     }
   })
 }
-
-const CronJob = require('cron').CronJob
-const CronTime = require('cron').CronTime
 
 // '0 0 * * * *' una hora
 // '*/30 * * * * *' cada 30 segundos
 // '*/10 * * * * *' cada 10 segundos
 // '* * * * * *' cada segundo
-let rebuildPeriod = '*/10 * * * * *' // El que se usará por defecto
+let period = '*/10 * * * * *' // El que se usará por defecto
 let computeDataWareHouseJob
 
-exports.rebuildPeriod = function (req, res) {
+const rebuildPeriod = (req, res) => {
   console.log('Updating rebuild period. Request: period:' + req.query.rebuildPeriod)
-  rebuildPeriod = req.query.rebuildPeriod
-  computeDataWareHouseJob.setTime(new CronTime(rebuildPeriod))
+  period = req.query.rebuildPeriod
+  computeDataWareHouseJob.setTime(new cron.CronTime(period))
   computeDataWareHouseJob.start()
 
   res.json(req.query.rebuildPeriod)
 }
 
-function createDataWareHouseJob () {
-  computeDataWareHouseJob = new CronJob(rebuildPeriod, function () {
+const createDataWareHouseJob = () => {
+  computeDataWareHouseJob = new cron.CronJob(period, () => {
     const newDataWareHouse = new DataWareHouse()
-    console.log('Cron job submitted. Rebuild period: ' + rebuildPeriod)
+    console.log('Cron job submitted. Rebuild period: ' + period)
+    //De esto creo que hay versión nativa, tengo que mirar
     async.parallel([
       computeTopCancellers,
       computeTopNotCancellers,
@@ -56,7 +52,7 @@ function createDataWareHouseJob () {
       computeTopClerks,
       computeBottomClerks,
       computeRatioCancelledOrders
-    ], function (err, results) {
+    ], (err, results) => {
       if (err) {
         console.log('Error computing datawarehouse: ' + err)
       } else {
@@ -67,9 +63,8 @@ function createDataWareHouseJob () {
         newDataWareHouse.topClerks = results[3]
         newDataWareHouse.bottomClerks = results[4]
         newDataWareHouse.ratioCancelledOrders = results[5]
-        newDataWareHouse.rebuildPeriod = rebuildPeriod
-
-        newDataWareHouse.save(function (err, datawarehouse) {
+        newDataWareHouse.rebuildPeriod = period
+        newDataWareHouse.save((err, datawarehouse) => {
           if (err) {
             console.log('Error saving datawarehouse: ' + err)
           } else {
@@ -81,10 +76,8 @@ function createDataWareHouseJob () {
   }, null, true, 'Europe/Madrid')
 }
 
-module.exports.createDataWareHouseJob = createDataWareHouseJob
-
-function computeTopCancellers (callback) {
-  Orders.aggregate([
+const computeTopCancellers = (callback) => {
+  Order.aggregate([
     { $match: { cancelationMoment: { $exists: true } } },
     {
       $facet: {
@@ -97,13 +90,13 @@ function computeTopCancellers (callback) {
       }
     },
     { $project: { topCanceladores: { $slice: ['$canceladores', { $arrayElemAt: ['$preComputation.limitTopPercentage', 0] }] } } }
-  ], function (err, res) {
+  ], (err, res) => {
     callback(err, res[0].topCanceladores)
   })
 };
 
-function computeTopNotCancellers (callback) {
-  Orders.aggregate([
+const computeTopNotCancellers = (callback) => {
+  Order.aggregate([
     { $match: { cancelationMoment: { $exists: false } } },
     {
       $facet: {
@@ -116,13 +109,13 @@ function computeTopNotCancellers (callback) {
       }
     },
     { $project: { topNoCanceladores: { $slice: ['$noCanceladores', { $arrayElemAt: ['$preComputation.limitTopPercentage', 0] }] } } }
-  ], function (err, res) {
+  ], (err, res) => {
     callback(err, res[0].topNoCanceladores)
   })
 };
 
-function computeBottomNotCancellers (callback) {
-  Orders.aggregate([
+const computeBottomNotCancellers = (callback) => {
+  Order.aggregate([
     { $match: { cancelationMoment: { $exists: false } } },
     {
       $facet: {
@@ -135,13 +128,13 @@ function computeBottomNotCancellers (callback) {
       }
     },
     { $project: { bottomNoCanceladores: { $slice: ['$noCanceladores', { $arrayElemAt: ['$preComputation.limitTopPercentage', 0] }] } } }
-  ], function (err, res) {
+  ], (err, res) => {
     callback(err, res[0].bottomNoCanceladores)
   })
 };
 
-function computeTopClerks (callback) {
-  Orders.aggregate([
+const computeTopClerks = (callback) => {
+  Order.aggregate([
     { $match: { deliveryMoment: { $exists: true } } },
     {
       $facet: {
@@ -154,13 +147,13 @@ function computeTopClerks (callback) {
       }
     },
     { $project: { topDeliverers: { $slice: ['$deliverers', { $arrayElemAt: ['$preComputation.limitTopPercentage', 0] }] } } }
-  ], function (err, res) {
+  ], (err, res) => {
     callback(err, res[0].topDeliverers)
   })
 };
 
-function computeBottomClerks (callback) {
-  Orders.aggregate([
+const computeBottomClerks = (callback) => {
+  Order.aggregate([
     { $match: { deliveryMoment: { $exists: true } } },
     {
       $facet: {
@@ -173,13 +166,13 @@ function computeBottomClerks (callback) {
       }
     },
     { $project: { bottomDeliverers: { $slice: ['$deliverers', { $arrayElemAt: ['$preComputation.limitTopPercentage', 0] }] } } }
-  ], function (err, res) {
+  ], (err, res) => {
     callback(err, res[0].bottomDeliverers)
   })
 };
 
-function computeRatioCancelledOrders (callback) {
-  Orders.aggregate([
+const computeRatioCancelledOrders = (callback) => {
+  Order.aggregate([
     {
       $project: {
         placementMonth: { $month: '$placementMoment' },
@@ -203,7 +196,7 @@ function computeRatioCancelledOrders (callback) {
     },
 
     { $project: { _id: 0, ratioOrdersCancelledCurrentMont: { $divide: [{ $arrayElemAt: ['$totalCancelledOrdersCurrentMonth.totalOrders', 0] }, { $arrayElemAt: ['$totalOrdersCurrentMonth.totalOrders', 0] }] } } }
-  ], function (err, res) {
+  ], (err, res) => {
     if (res?.length > 0) {
       callback(err, res[0]?.ratioOrdersCancelledCurrentMont)
     } else {
@@ -211,3 +204,5 @@ function computeRatioCancelledOrders (callback) {
     }
   })
 };
+
+export { listIndicators, lastIndicator, createDataWareHouseJob, rebuildPeriod }

@@ -1,10 +1,9 @@
 'use strict'
-const mongoose = require('mongoose')
 /* ---------------ITEM---------------------- */
-const Item = mongoose.model('Items')
+import Item from '../models/ItemModel.js'
 
-exports.list_all_items_v0 = function (req, res) {
-  Item.find({}, function (err, items) {
+const listItemsV0 = (req, res) => {
+  Item.find({}, (err, items) => {
     if (err) {
       res.send(err)
     } else {
@@ -13,10 +12,10 @@ exports.list_all_items_v0 = function (req, res) {
   })
 }
 
-exports.list_all_items = function (req, res) {
+const listItems = (req, res) => {
   // Check if the user is an administrator and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  Item.find({}, function (err, items) {
+  Item.find({}, (err, items) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -25,9 +24,9 @@ exports.list_all_items = function (req, res) {
   })
 }
 
-exports.create_an_item_v0 = function (req, res) {
+const createItemV0 =  (req, res) => {
   const newItem = new Item(req.body)
-  newItem.save(function (err, item) {
+  newItem.save( (err, item) => {
     if (err) {
       res.send(err)
     } else {
@@ -36,11 +35,11 @@ exports.create_an_item_v0 = function (req, res) {
   })
 }
 
-exports.create_an_item = function (req, res) {
+const createItem =  (req, res) => {
   // Check if the user is an administrator and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
   const newItem = new Item(req.body)
-  newItem.save(function (err, item) {
+  newItem.save( (err, item) => {
     if (err) {
       if (err.name === 'ValidationError') {
         res.status(422).send(err)
@@ -53,8 +52,8 @@ exports.create_an_item = function (req, res) {
   })
 }
 
-exports.read_an_item = function (req, res) {
-  Item.findById(req.params.itemId, function (err, item) {
+const readItem =  (req, res) => {
+  Item.findById(req.params.itemId,  (err, item) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -63,8 +62,8 @@ exports.read_an_item = function (req, res) {
   })
 }
 
-exports.update_an_item_v0 = function (req, res) {
-  Item.findOneAndUpdate({ _id: req.params.itemId }, req.body, { new: true }, function (err, item) {
+const updateItemV0 =  (req, res) => {
+  Item.findOneAndUpdate({ _id: req.params.itemId }, req.body, { new: true },  (err, item) => {
     if (err) {
       res.send(err)
     } else {
@@ -73,10 +72,10 @@ exports.update_an_item_v0 = function (req, res) {
   })
 }
 
-exports.update_an_item = function (req, res) {
+const updateItem =  (req, res) => {
   // Check that the user is administrator if it is updating more things than comments and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  Item.findOneAndUpdate({ _id: req.params.itemId }, req.body, { new: true }, function (err, item) {
+  Item.findOneAndUpdate({ _id: req.params.itemId }, req.body, { new: true },  (err, item) => {
     if (err) {
       if (err.name === 'ValidationError') {
         res.status(422).send(err)
@@ -89,8 +88,8 @@ exports.update_an_item = function (req, res) {
   })
 }
 
-exports.delete_an_item_v0 = function (req, res) {
-  Item.deleteOne({ _id: req.params.itemId }, function (err, item) {
+const deleteItemV0 =  (req, res) => {
+  Item.deleteOne({ _id: req.params.itemId },  (err, item) => {
     if (err) {
       res.send(err)
     } else {
@@ -99,10 +98,10 @@ exports.delete_an_item_v0 = function (req, res) {
   })
 }
 
-exports.delete_an_item = function (req, res) {
+const deleteItem =  (req, res) => {
   // Check if the user is an administrator and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  Item.deleteOne({ _id: req.params.itemId }, function (err, item) {
+  Item.deleteOne({ _id: req.params.itemId },  (err, item) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -111,7 +110,7 @@ exports.delete_an_item = function (req, res) {
   })
 }
 
-exports.search_items = function (req, res) {
+const searchItems =  (req, res) => {
   // In further version of the code we will:
   // 1.- control the authorization in order to include deleted items in the results if the requester is an Administrator.
   // 2.- use indexes to search keywords in 'name', 'description' or 'sku'.
@@ -149,7 +148,7 @@ exports.search_items = function (req, res) {
     .skip(skip)
     .limit(limit)
     .lean()
-    .exec(function (err, item) {
+    .exec( (err, item) => {
       console.log('Start searching items')
       if (err) {
         res.send(err)
@@ -160,64 +159,4 @@ exports.search_items = function (req, res) {
     })
 }
 
-/* ---------------CATEGORY---------------------- */
-const Category = mongoose.model('Categories')
-
-exports.list_all_categories = function (req, res) {
-  Category.find({}, function (err, categs) {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      res.json(categs)
-    }
-  })
-}
-
-exports.create_a_category = function (req, res) {
-  const newCategory = new Category(req.body)
-  newCategory.save(function (err, categ) {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err)
-      } else {
-        res.status(500).send(err)
-      }
-    } else {
-      res.json(categ)
-    }
-  })
-}
-
-exports.read_a_category = function (req, res) {
-  Category.findById(req.params.categId, function (err, categ) {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      res.json(categ)
-    }
-  })
-}
-
-exports.update_a_category = function (req, res) {
-  Category.findOneAndUpdate({ _id: req.params.categId }, req.body, { new: true }, function (err, categ) {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err)
-      } else {
-        res.status(500).send(err)
-      }
-    } else {
-      res.json(categ)
-    }
-  })
-}
-
-exports.delete_a_category = function (req, res) {
-  Category.deleteOne({ _id: req.params.categId }, function (err, categ) {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      res.json({ message: 'Category successfully deleted' })
-    }
-  })
-}
+export { listItemsV0, listItems, createItem, createItemV0, readItem, updateItemV0, updateItem, deleteItemV0, deleteItem, searchItems }

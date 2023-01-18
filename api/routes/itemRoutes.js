@@ -1,10 +1,11 @@
 'use strict'
-module.exports = function (app) {
-  const items = require('../controllers/itemController')
+import { listItemsV0, listItems, createItem, createItemV0, readItem, updateItemV0, updateItem, deleteItemV0, deleteItem, searchItems } from '../controllers/ItemController.js';
+
+export default function (app) {
 
   app.route('/v0/items')
-    .get(items.list_all_items_v0)
-    .post(items.create_an_item_v0)
+    .get(listItemsV0)
+    .post(createItemV0)
 
   /**
    * Manage catalogue of items:
@@ -18,13 +19,13 @@ module.exports = function (app) {
    * @url /v1/items
   */
   app.route('/v1/items')
-    .get(items.list_all_items)
-    .post(items.create_an_item)
+    .get(listItems)
+    .post(createItem)
 
   app.route('/v0/items/:itemId')
-    .get(items.read_an_item)
-    .put(items.update_an_item_v0)
-    .delete(items.delete_an_item_v0)
+    .get(readItem)
+    .put(updateItemV0)
+    .delete(deleteItemV0)
 
   /**
    * get results from a search of items groupBy category
@@ -43,7 +44,7 @@ module.exports = function (app) {
    * @param {string} keyword //in sku, name, or description
    */
   app.route('/v1/items/search')
-    .get(items.search_items)
+    .get(searchItems)
 
   /**
    * Put comments on an item or update it
@@ -58,18 +59,8 @@ module.exports = function (app) {
    * @url /v1/items/:itemId
   */
   app.route('/v1/items/:itemId')
-    .get(items.read_an_item)
-    .put(items.update_an_item)
-    .delete(items.delete_an_item)
+    .get(readItem)
+    .put(updateItem)
+    .delete(deleteItem)
 
-  app.route('/v0/categories')
-    .get(items.list_all_categories)
-    .post(items.create_a_category)
-
-  /*
-  app.route('/v0/categories/:categId')
-    .get(items.read_a_category)
-    .put(items.update_a_category)
-    .delete(items.delete_a_category)
-  */
 }

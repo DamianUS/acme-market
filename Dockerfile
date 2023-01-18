@@ -1,4 +1,4 @@
-FROM node:14-alpine as base
+FROM node:18-alpine as base
 
 WORKDIR /src
 COPY package*.json /
@@ -11,11 +11,11 @@ RUN chmod +x /wait
 FROM base as production
 ENV NODE_ENV=production
 RUN npm ci
-COPY . /
+COPY ./ ./
 CMD ["node", "bin/www"]
 
 FROM base as dev
 ENV NODE_ENV=development
-COPY . /
+COPY ./ ./
 RUN npm install -g nodemon && npm install
 CMD ["nodemon", "bin/www"]

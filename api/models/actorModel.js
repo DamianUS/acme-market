@@ -1,9 +1,8 @@
 'use strict'
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const bcrypt = require('bcrypt')
+import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 
-const ActorSchema = new Schema({
+const actorSchema = new mongoose.Schema({
   name: {
     type: String,
     required: 'Kindly enter the actor name'
@@ -54,7 +53,7 @@ const ActorSchema = new Schema({
   }
 }, { strict: false })
 
-ActorSchema.pre('save', function (callback) {
+actorSchema.pre('save', function (callback) {
   const actor = this
   // Break out if the password hasn't changed
   // if (!actor.isModified('password')) return callback()
@@ -71,7 +70,7 @@ ActorSchema.pre('save', function (callback) {
   })
 })
 
-ActorSchema.pre('findOneAndUpdate', function (callback) {
+actorSchema.pre('findOneAndUpdate', function (callback) {
   const actor = this._update
 
   bcrypt.genSalt(5, function (err, salt) {
@@ -85,7 +84,7 @@ ActorSchema.pre('findOneAndUpdate', function (callback) {
   })
 })
 
-ActorSchema.methods.verifyPassword = function (password, cb) {
+actorSchema.methods.verifyPassword = function (password, cb) {
   bcrypt.compare(password, this.password, function (err, isMatch) {
     // console.log('verifying password in actorModel: ' + password)
     if (err) return cb(err)
@@ -93,5 +92,7 @@ ActorSchema.methods.verifyPassword = function (password, cb) {
     cb(null, isMatch)
   })
 }
+const model = mongoose.model('Actor', actorSchema)
 
-module.exports = mongoose.model('Actors', ActorSchema)
+export const schema = model.schema
+export default model

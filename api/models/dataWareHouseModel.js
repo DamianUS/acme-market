@@ -1,22 +1,26 @@
 'use strict'
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import mongoose from 'mongoose'
 
-const DataWareHouseSchema = new mongoose.Schema({
+const dataWareHouseSchema = new mongoose.Schema({
   topCancellers: [{
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Actor'
   }],
   topNotCancellers: [{
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Actor'
   }],
   bottomNotCancellers: [{
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Actor'
   }],
   topClerks: [{
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Actor'
   }],
   bottomClerks: [{
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Actor'
   }],
   ratioCancelledOrders: {
     type: Number,
@@ -32,6 +36,8 @@ const DataWareHouseSchema = new mongoose.Schema({
   }
 }, { strict: false })
 
-DataWareHouseSchema.index({ computationMoment: -1 })
+dataWareHouseSchema.index({ computationMoment: -1 })
 
-module.exports = mongoose.model('DataWareHouse', DataWareHouseSchema)
+const model = mongoose.model('DataWareHouse', dataWareHouseSchema)
+export const schema = model.schema
+export default model

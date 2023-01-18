@@ -1,10 +1,9 @@
 'use strict'
 /* ---------------ACTOR---------------------- */
-const mongoose = require('mongoose')
-const Actor = mongoose.model('Actors')
+import Actor from '../models/ActorModel.js'
 
-exports.list_all_actors_v0 = function (req, res) {
-  Actor.find({}, function (err, actors) {
+const listActors_V0 = (req, res) => {
+  Actor.find({}, (err, actors) => {
     if (err) {
       res.send(err)
     } else {
@@ -13,7 +12,7 @@ exports.list_all_actors_v0 = function (req, res) {
   })
 }
 
-exports.list_all_actors = function (req, res) {
+const listActors = (req, res) => {
   // Check if the role param exist
   /*
   if (req.query.role) {
@@ -21,7 +20,7 @@ exports.list_all_actors = function (req, res) {
   }
   */
   // Adapt to find the actors with the specified role
-  Actor.find({}, function (err, actors) {
+  Actor.find({}, (err, actors) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -30,9 +29,9 @@ exports.list_all_actors = function (req, res) {
   })
 }
 
-exports.create_an_actor_v0 = function (req, res) {
+const createActor_V0 = (req, res) => {
   const newActor = new Actor(req.body)
-  newActor.save(function (err, actor) {
+  newActor.save((err, actor) => {
     if (err) {
       res.send(err)
     } else {
@@ -41,7 +40,7 @@ exports.create_an_actor_v0 = function (req, res) {
   })
 }
 
-exports.create_an_actor = function (req, res) {
+const createActor = (req, res) => {
   const newActor = new Actor(req.body)
   // If new_actor is a customer, validated = true;
   // If new_actor is a clerk, validated = false;
@@ -50,7 +49,7 @@ exports.create_an_actor = function (req, res) {
   } else {
     newActor.validated = true
   }
-  newActor.save(function (err, actor) {
+  newActor.save((err, actor) => {
     if (err) {
       if (err.name === 'ValidationError') {
         res.status(422).send(err)
@@ -63,8 +62,8 @@ exports.create_an_actor = function (req, res) {
   })
 }
 
-exports.read_an_actor_v0 = function (req, res) {
-  Actor.findById(req.params.actorId, function (err, actor) {
+const readActorV0 = (req, res) => {
+  Actor.findById(req.params.actorId, (err, actor) => {
     if (err) {
       res.send(err)
     } else {
@@ -73,8 +72,8 @@ exports.read_an_actor_v0 = function (req, res) {
   })
 }
 
-exports.read_an_actor = function (req, res) {
-  Actor.findById(req.params.actorId, function (err, actor) {
+const readActor = (req, res) => {
+  Actor.findById(req.params.actorId, (err, actor) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -83,8 +82,8 @@ exports.read_an_actor = function (req, res) {
   })
 }
 
-exports.update_an_actor_v0 = function (req, res) {
-  Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true }, function (err, actor) {
+const updateActorV0 = (req, res) => {
+  Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true }, (err, actor) => {
     if (err) {
       res.send(err)
     } else {
@@ -93,10 +92,10 @@ exports.update_an_actor_v0 = function (req, res) {
   })
 }
 
-exports.update_an_actor = function (req, res) {
+const updateActor = (req, res) => {
   // Check that the user is the proper actor and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true }, function (err, actor) {
+  Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true }, (err, actor) => {
     if (err) {
       if (err.name === 'ValidationError') {
         res.status(422).send(err)
@@ -109,11 +108,11 @@ exports.update_an_actor = function (req, res) {
   })
 }
 
-exports.validate_an_actor = function (req, res) {
+const validateActor = (req, res) => {
   // Check that the user is an Administrator and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
   console.log('Validating an actor with id: ' + req.params.actorId)
-  Actor.findOneAndUpdate({ _id: req.params.actorId }, { $set: { validated: 'true' } }, { new: true }, function (err, actor) {
+  Actor.findOneAndUpdate({ _id: req.params.actorId }, { $set: { validated: 'true' } }, { new: true }, (err, actor) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -122,8 +121,8 @@ exports.validate_an_actor = function (req, res) {
   })
 }
 
-exports.delete_an_actor_v0 = function (req, res) {
-  Actor.deleteOne({ _id: req.params.actorId }, function (err, actor) {
+const deleteActorV0 = (req, res) => {
+  Actor.deleteOne({ _id: req.params.actorId }, (err, actor) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -131,3 +130,5 @@ exports.delete_an_actor_v0 = function (req, res) {
     }
   })
 }
+
+export {listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0}

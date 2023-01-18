@@ -1,10 +1,10 @@
 'use strict'
-module.exports = function (app) {
-  const actors = require('../controllers/actorController')
-
+import { listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0 } from '../controllers/ActorController.js';
+export default function (app) {
+  
   app.route('/v0/actors')
-    .get(actors.list_all_actors_v0)
-    .post(actors.create_an_actor_v0)
+    .get(listActors_V0)
+    .post(createActor_V0)
 
   /**
    * Get an actor who is clerk (any role)
@@ -19,13 +19,13 @@ module.exports = function (app) {
    * @param {string} role (clerk|administrator|customer)
   */
   app.route('/v1/actors')
-    .get(actors.list_all_actors)
-    .post(actors.create_an_actor)
+    .get(listActors)
+    .post(createActor)
 
   app.route('/v0/actors/:actorId')
-    .get(actors.read_an_actor_v0)
-    .put(actors.update_an_actor_v0)
-    .delete(actors.delete_an_actor_v0)
+    .get(readActorV0)
+    .put(updateActorV0)
+    .delete(deleteActorV0)
 
   /**
    * Put an actor
@@ -38,8 +38,8 @@ module.exports = function (app) {
    * @url /v1/actors/:actorId
   */
   app.route('/v1/actors/:actorId')
-    .get(actors.read_an_actor)
-    .put(actors.update_an_actor)
+    .get(readActor)
+    .put(updateActor)
     // .delete(actors.delete_an_actor)
 
   /**
@@ -52,5 +52,5 @@ module.exports = function (app) {
    * @param {string} actorId
    * */
   app.route('/v1/actors/:actorId/validate')
-    .put(actors.validate_an_actor)
+    .put(validateActor)
 }

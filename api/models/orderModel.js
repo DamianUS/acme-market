@@ -1,40 +1,11 @@
 'use strict'
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-const dateFormat = require('dateformat')
-const customAlphabet = require('nanoid').customAlphabet
+import mongoose from 'mongoose'
+import dateFormat from 'dateformat'
+import { customAlphabet } from 'nanoid'
+import { schema as orderItemSchema } from './OrderItemModel.js'
 const idGenerator = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 6)
 
-const OrderedItemSchema = new Schema({
-  sku: {
-    type: String,
-    validate: {
-      validator: function (v) {
-        return /^\w{6}$/.test(v)
-      },
-      message: 'sku is not valid!, Pattern("^w{6}$")'
-    }
-  },
-  name: {
-    type: String,
-    required: 'Item name required'
-  },
-  quantity: {
-    type: Number,
-    min: 1
-  },
-  price: {
-    type: Number,
-    min: 0
-  },
-  served: {
-    type: Boolean,
-    default: false
-  }
-}, { strict: false })
-
-const OrderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
   ticker: {
     type: String,
     unique: true,
@@ -70,22 +41,24 @@ const OrderSchema = new mongoose.Schema({
     min: 0
   },
   consumer: {
-    type: Schema.Types.ObjectId,
-    required: 'consumer id required'
+    type: mongoose.Schema.Types.ObjectId,
+    required: 'consumer id required',
+    ref: 'Actor'
   },
   clerk: {
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Actor'
   },
-  orderedItems: [OrderedItemSchema]
+  orderedItems: [orderItemSchema]
 }, { strict: false })
 
-OrderSchema.index({ consumer: 1 })
-OrderSchema.index({ clerk: 1 })
-OrderSchema.index({ cancelationMoment: 1 })
-OrderSchema.index({ deliveryMoment: 1 })
+orderSchema.index({ consumer: 1 })
+orderSchema.index({ clerk: 1 })
+orderSchema.index({ cancelationMoment: 1 })
+orderSchema.index({ deliveryMoment: 1 })
 
 // Execute before each item.save() call
-OrderSchema.pre('save', function (callback) {
+orderSchema.pre('save', function (callback) {
   const newOrder = this
   const day = dateFormat(new Date(), 'yymmdd')
 
@@ -94,4 +67,8 @@ OrderSchema.pre('save', function (callback) {
 
   callback()
 })
-module.exports = mongoose.model('Orders', OrderSchema)
+
+const model = mongoose.model('Order', orderSchema)
+
+export const schema = model.schema
+export default model
