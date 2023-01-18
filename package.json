@@ -5,6 +5,7 @@
     "body-parser": "^1.18.3",
     "cron": "^1.6.0",
     "dateformat": "^3.0.3",
+    "dotenv": "^16.0.3",
     "express": "^4.16.4",
     "mongoose": "^5.9.1",
     "nanoid": "^3.2.1",

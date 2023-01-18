@@ -1,4 +1,6 @@
 const express = require('express')
+require('dotenv').config()
+
 const app = express()
 const port = process.env.PORT || 8080
 const mongoose = require('mongoose')
@@ -34,7 +36,7 @@ const mongoDBHostname = process.env.DATABASE_HOST || 'localhost'
 const mongoDBPort = process.env.DATABASE_PORT || '27017'
 const mongoDBName = process.env.DATABASE_NAME || 'ACME-Market'
 
-const mongoDBURI = 'mongodb://' + mongoDBCredentials + mongoDBHostname + ':' + mongoDBPort + '/' + mongoDBName
+const mongoDBURI = process.env.DATABASE_URI || 'mongodb://' + mongoDBCredentials + mongoDBHostname + ':' + mongoDBPort + '/' + mongoDBName
 mongoose.set('useCreateIndex', true)
 // mongoose.set('debug', true); //util para ver detalle de las operaciones que se realizan contra mongodb
 // Make Mongoose use `findOneAndUpdate()`. Note that this option is `true`
@@ -62,4 +64,4 @@ mongoose.connection.on('open', function () {
 mongoose.connection.on('error', function (err) {
   console.error('DB init error ' + err)
 })
-DataWareHouseTools.createDataWareHouseJob()
+//DataWareHouseTools.createDataWareHouseJob()
