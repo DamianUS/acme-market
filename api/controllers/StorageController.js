@@ -1,16 +1,22 @@
 'use strict'
+import mongoose from 'mongoose'
+import fs from 'fs'
+import { streamToMongoDB } from 'stream-to-mongo-db'
+import JSONStream from 'JSONStream'
 
-const storeJsonInsertMany = (req, res) => {
+//Hago la función async para poder usar el await import, ver si esto rompe algo.
+const storeJsonInsertMany = async (req, res) => {
   let mongooseModel = null
   let sourceFile = null
   let response = ''
-  /*
   if (req.query.mongooseModel && req.query.sourceFile) {
+    //Recordatorio: Ahora los modelos tienen nombre en mayúscula y singular: Order, Actor
     mongooseModel = req.query.mongooseModel
+    //Recordatorio: para que este import funcione sería una ruta que termine en .js
     sourceFile = req.query.sourceFile
 
-    const json = require(sourceFile)
-    const mongoose = require('mongoose')
+    //Damián: No sé qué es sourceFile, pero pongo el equivalente a pelo
+    const json = await import(sourceFile)
     const collectionModel = mongoose.model(mongooseModel)
 
     // where the data will end up
@@ -31,16 +37,11 @@ const storeJsonInsertMany = (req, res) => {
     console.log(response)
     res.send(response)
   }
-  */
 }
 
 const storeJsonFs = (req, res) => {
   //stream to mongo db no parece tener versión para es6, es de hace 4 años
-  /*
-  const streamToMongoDB = require('stream-to-mongo-db').streamToMongoDB
-  const JSONStream = require('JSONStream')
-  const fs = require('fs')
-
+  
   let dbURL = null
   let collection = null
   let sourceFile = null
@@ -82,7 +83,6 @@ const storeJsonFs = (req, res) => {
     console.log(response)
     res.send(response)
   }
-  */
 }
 
 export { storeJsonInsertMany, storeJsonFs }
