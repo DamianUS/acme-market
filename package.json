@@ -20,8 +20,8 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "start": "nodemon app.js",
-    "docker_debug": "nodemon --inspect=0.0.0.0:9229 app.js"
+    "start": "nodemon --ignore ./example_api_client/ app.js",
+    "docker_debug": "nodemon --ignore ./example_api_client/ --inspect=0.0.0.0:9229 app.js"
   },
   "type": "module"
 }
