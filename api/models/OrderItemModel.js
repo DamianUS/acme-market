@@ -29,7 +29,8 @@ const orderItemSchema = new mongoose.Schema({
   }
 }, { strict: false })
 
-const model = mongoose.model('OrderItem', orderItemSchema)
+//Not needed as it is used as a nested document in Order
+//const model = mongoose.model('OrderItem', orderItemSchema)
 
-export const schema = model.schema
-export default model
+export const schema = orderItemSchema
+//export default model

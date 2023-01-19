@@ -27,7 +27,8 @@ const commentSchema = new mongoose.Schema({
   }
 }, { strict: false })
 
-const model = mongoose.model('Comment', commentSchema)
+//Not needed as it is used as a nested document in Item
+//const model = mongoose.model('Comment', commentSchema)
 
-export const schema = model.schema
-export default model
+export const schema = commentSchema
+//export default model
