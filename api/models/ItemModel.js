@@ -1,20 +1,10 @@
 'use strict'
 import mongoose from 'mongoose'
-import { customAlphabet } from 'nanoid'
 import { schema as commentSchema } from './CommentModel.js'
-const skuGenerator = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 6)
 
 const itemSchema = new mongoose.Schema({
   sku: {
     type: String,
-    unique: true,
-    // This validation is not executed after the middleware pre-save
-    validate: {
-      validator: function (v) {
-        return /^\w{6}$/.test(v)
-      },
-      message: 'sku is not valid!, Pattern("^w{6}$")'
-    }
   },
   deleted: {
     type: Boolean,
@@ -51,16 +41,6 @@ const itemSchema = new mongoose.Schema({
     default: Date.now
   }
 }, { strict: false })
-
-itemSchema.index({ category: 1, price: 1 }) // 1 ascending,  -1 descending
-itemSchema.index({ name: 'text', description: 'text', sku: 'text' })
-
-// Execute before each item.save() call
-itemSchema.pre('save', function (callback) {
-  const newItem = this
-  newItem.sku = skuGenerator()
-  callback()
-})
 
 const model = mongoose.model('Item', itemSchema)
 

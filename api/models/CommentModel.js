@@ -1,7 +1,5 @@
 'use strict'
 import mongoose from 'mongoose'
-import { customAlphabet } from 'nanoid'
-const skuGenerator = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 6)
 
 const commentSchema = new mongoose.Schema({
   title: {

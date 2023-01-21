@@ -6,9 +6,6 @@ import actorRoutes from './api/routes/ActorRoutes.js'
 import itemRoutes from './api/routes/ItemRoutes.js'
 import categoryRoutes from './api/routes/CategoryRoutes.js'
 import orderRoutes from './api/routes/OrderRoutes.js'
-import storageRoutes from './api/routes/StorageRoutes.js'
-import dataWarehouseRoutes from './api/routes/DataWareHouseRoutes.js'
-import { createDataWareHouseJob } from './api/controllers/DataWareHouseController.js'
 dotenv.config()
 
 const app = express()
@@ -19,8 +16,6 @@ app.use(bodyParser.json())
 actorRoutes(app)
 itemRoutes(app)
 orderRoutes(app)
-storageRoutes(app)
-dataWarehouseRoutes(app)
 categoryRoutes(app)
 
 // MongoDB URI building
@@ -58,4 +53,3 @@ mongoose.connection.on('open', function () {
 mongoose.connection.on('error', function (err) {
   console.error('DB init error ' + err)
 })
-createDataWareHouseJob()

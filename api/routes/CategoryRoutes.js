@@ -3,14 +3,13 @@ import { listCategories, createCategory, readCategory, updateCategory, deleteCat
 
 export default function (app) {
 
-  app.route('/v0/categories')
+  app.route('/categories')
     .get(listCategories)
     .post(createCategory)
+  
+  app.route('/categories/:categId')
+    .get(readCategory)
+    .put(updateCategory)
+    .delete(deleteCategory)
 
-  /*
-  app.route('/v0/categories/:categId')
-    .get(items.read_a_category)
-    .put(items.update_a_category)
-    .delete(items.delete_a_category)
-  */
 }

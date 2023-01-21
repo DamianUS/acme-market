@@ -4,12 +4,6 @@ import mongoose from 'mongoose'
 const orderItemSchema = new mongoose.Schema({
   sku: {
     type: String,
-    validate: {
-      validator: function (v) {
-        return /^\w{6}$/.test(v)
-      },
-      message: 'sku is not valid!, Pattern("^w{6}$")'
-    }
   },
   name: {
     type: String,

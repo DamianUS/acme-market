@@ -2,16 +2,6 @@
 /* ---------------ACTOR---------------------- */
 import Actor from '../models/ActorModel.js'
 
-const listActors_V0 = async (req, res) => {
-  try{
-    const actors = await Actor.find({})
-    res.json(actors)
-  }
-  catch(err){
-    res.send(err)
-  }
-}
-
 const listActors = async (req, res) => {
   // Check if the role param exist. Discuss the pros and cons of this implementation and alternatives. Security.
   const filters = {}
@@ -27,26 +17,9 @@ const listActors = async (req, res) => {
   }
 }
 
-const createActor_V0 = async (req, res) => {
-  const newActor = new Actor(req.body)
-  try{
-    const actor = await newActor.save()
-    res.json(actor)
-  }
-  catch(err){
-    res.send(err)
-  }
-}
-
 const createActor = async (req, res) => {
-  const newActor = new Actor(req.body)
-  // If new_actor is a customer, validated = true;
-  // If new_actor is a clerk, validated = false;
-  newActor.validated = true
-  if ((newActor.role.includes('CLERK'))) {
-    newActor.validated = false
-  }
   try{
+    const newActor = new Actor(req.body)
     const actor = await newActor.save()
     res.json(actor)
   }
@@ -56,16 +29,6 @@ const createActor = async (req, res) => {
     } else {
       res.status(500).send(err)
     }
-  }
-}
-
-const readActorV0 = async (req, res) => {
-  try{
-    const actor = await Actor.findById(req.params.actorId)
-    res.json(actor)
-  }
-  catch(err){
-    res.send(err)
   }
 }
 
@@ -81,16 +44,6 @@ const readActor = async (req, res) => {
   }
   catch(err){
     res.status(500).send(err)
-  }
-}
-
-const updateActorV0 = async (req, res) => {
-  try{
-    const actor = await Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true })
-    res.json(actor)
-  }
-  catch(err){
-    res.send(err)
   }
 }
 
@@ -132,16 +85,6 @@ const validateActor = async (req, res) => {
   }
 }
 
-const deleteActorV0 = async (req, res) => {
-  try{
-    const actor = await Actor.deleteOne({ _id: req.params.actorId })
-    res.json({ message: 'Actor successfully deleted' })
-  }
-  catch(err){
-    res.status(500).send(err)
-  }
-}
-
 const deleteActor = async (req, res) => {
   try {
     const deletionResponse = await Actor.deleteOne({ _id: req.params.actorId })
@@ -157,4 +100,4 @@ const deleteActor = async (req, res) => {
   }
 }
 
-export {listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0, deleteActor}
+export {listActors, createActor, readActor, updateActor, validateActor, deleteActor}

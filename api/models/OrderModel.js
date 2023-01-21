@@ -8,14 +8,6 @@ const idGenerator = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefgh
 const orderSchema = new mongoose.Schema({
   ticker: {
     type: String,
-    unique: true,
-    // This validation does not run after middleware pre-save
-    validate: {
-      validator: function (v) {
-        return /\d{6}-\w{6}/.test(v)
-      },
-      message: 'ticker is not valid!, Pattern("d(6)-w(6)")'
-    }
   },
   consumerName: {
     type: String,
@@ -51,22 +43,6 @@ const orderSchema = new mongoose.Schema({
   },
   orderedItems: [orderItemSchema]
 }, { strict: false })
-
-orderSchema.index({ consumer: 1 })
-orderSchema.index({ clerk: 1 })
-orderSchema.index({ cancelationMoment: 1 })
-orderSchema.index({ deliveryMoment: 1 })
-
-// Execute before each item.save() call
-orderSchema.pre('save', function (callback) {
-  const newOrder = this
-  const day = dateFormat(new Date(), 'yymmdd')
-
-  const generatedTicker = [day, idGenerator()].join('-')
-  newOrder.ticker = generatedTicker
-
-  callback()
-})
 
 const model = mongoose.model('Order', orderSchema)
 
