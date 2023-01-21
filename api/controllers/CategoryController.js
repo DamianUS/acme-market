@@ -2,63 +2,78 @@
 /* ---------------ITEM---------------------- */
 import Category from '../models/CategoryModel.js'
 
-const listCategories =  (req, res) => {
-  Category.find({},  (err, categs) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      res.json(categs)
-    }
-  })
+const listCategories =  async (req, res) => {
+  try{
+    const categories = await Category.find({})
+    res.json(categories)
+  }
+  catch(err){
+    res.status(500).send(err)
+  }
 }
 
-const createCategory =  (req, res) => {
+const createCategory = async (req, res) => {
   const newCategory = new Category(req.body)
-  newCategory.save( (err, categ) => {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err)
-      } else {
-        res.status(500).send(err)
-      }
+  try{
+    const category = await newCategory.save()
+    res.json(category)
+  }
+  catch(err){
+    if (err.name === 'ValidationError') {
+      res.status(422).send(err)
     } else {
-      res.json(categ)
-    }
-  })
-}
-
-const readCategory =  (req, res) => {
-  Category.findById(req.params.categId,  (err, categ) => {
-    if (err) {
       res.status(500).send(err)
-    } else {
-      res.json(categ)
     }
-  })
+  }
 }
 
-const updateCategory =  (req, res) => {
-  Category.findOneAndUpdate({ _id: req.params.categId }, req.body, { new: true },  (err, categ) => {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err)
-      } else {
-        res.status(500).send(err)
-      }
-    } else {
-      res.json(categ)
+const readCategory = async (req, res) => {
+  try {
+    const category = await Category.findById(req.params.categId)
+    if(category){
+      res.json(category)
     }
-  })
+    else{
+      res.status(404).send("Category not found")
+    }
+  }
+  catch (err) {
+    res.status(500).send(err)
+  }
 }
 
-const deleteCategory =  (req, res) => {
-  Category.deleteOne({ _id: req.params.categId },  (err, categ) => {
-    if (err) {
+const updateCategory = async (req, res) => {
+  try{
+    const category = await Category.findOneAndUpdate({ _id: req.params.categId }, req.body, { new: true })
+    if(category){
+      res.json(category)
+    }
+    else{
+      res.status(404).send("Category not found")
+    }
+  }
+  catch(err){
+    if (err.name === 'ValidationError') {
+      res.status(422).send(err)
+    } else {
       res.status(500).send(err)
-    } else {
+    }
+  }
+}
+
+const deleteCategory = async (req, res) => {
+  try {
+    const deletionResponse = await Category.deleteOne({ _id: req.params.categId })
+    if (deletionResponse.deletedCount > 0) {
       res.json({ message: 'Category successfully deleted' })
     }
-  })
+    else {
+      res.status(404).send("Category could not be deleted")
+    }
+  }
+  catch (err) {
+    res.status(500).send(err)
+  }
 }
 
 export { listCategories, createCategory, readCategory, updateCategory, deleteCategory }

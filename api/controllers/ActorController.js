@@ -2,133 +2,159 @@
 /* ---------------ACTOR---------------------- */
 import Actor from '../models/ActorModel.js'
 
-const listActors_V0 = (req, res) => {
-  Actor.find({}, (err, actors) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.json(actors)
-    }
-  })
-}
-
-const listActors = (req, res) => {
-  // Check if the role param exist
-  /*
-  if (req.query.role) {
-    const roleName = req.query.role
+const listActors_V0 = async (req, res) => {
+  try{
+    const actors = await Actor.find({})
+    res.json(actors)
   }
-  */
-  // Adapt to find the actors with the specified role
-  Actor.find({}, (err, actors) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      res.json(actors)
-    }
-  })
+  catch(err){
+    res.send(err)
+  }
 }
 
-const createActor_V0 = (req, res) => {
+const listActors = async (req, res) => {
+  // Check if the role param exist. Discuss the pros and cons of this implementation and alternatives. Security.
+  const filters = {}
+  if (req.query.role) {
+    filters.role = req.query.role
+  }
+  try{
+    const actors = await Actor.find(filters)
+    res.json(actors)
+  }
+  catch(err){
+    res.status(500).send(err)
+  }
+}
+
+const createActor_V0 = async (req, res) => {
   const newActor = new Actor(req.body)
-  newActor.save((err, actor) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.json(actor)
-    }
-  })
+  try{
+    const actor = await newActor.save()
+    res.json(actor)
+  }
+  catch(err){
+    res.send(err)
+  }
 }
 
-const createActor = (req, res) => {
+const createActor = async (req, res) => {
   const newActor = new Actor(req.body)
   // If new_actor is a customer, validated = true;
   // If new_actor is a clerk, validated = false;
+  newActor.validated = true
   if ((newActor.role.includes('CLERK'))) {
     newActor.validated = false
-  } else {
-    newActor.validated = true
   }
-  newActor.save((err, actor) => {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err)
-      } else {
-        res.status(500).send(err)
-      }
+  try{
+    const actor = await newActor.save()
+    res.json(actor)
+  }
+  catch(err){
+    if (err.name === 'ValidationError') {
+      res.status(422).send(err)
     } else {
-      res.json(actor)
-    }
-  })
-}
-
-const readActorV0 = (req, res) => {
-  Actor.findById(req.params.actorId, (err, actor) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.json(actor)
-    }
-  })
-}
-
-const readActor = (req, res) => {
-  Actor.findById(req.params.actorId, (err, actor) => {
-    if (err) {
       res.status(500).send(err)
-    } else {
-      res.json(actor)
     }
-  })
+  }
 }
 
-const updateActorV0 = (req, res) => {
-  Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true }, (err, actor) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.json(actor)
-    }
-  })
+const readActorV0 = async (req, res) => {
+  try{
+    const actor = await Actor.findById(req.params.actorId)
+    res.json(actor)
+  }
+  catch(err){
+    res.send(err)
+  }
 }
 
-const updateActor = (req, res) => {
+const readActor = async (req, res) => {
+  try{
+    const actor = await Actor.findById(req.params.actorId)
+    if(actor){
+      res.json(actor)
+    }
+    else{
+      res.status(404).send("Actor not found")
+    }
+  }
+  catch(err){
+    res.status(500).send(err)
+  }
+}
+
+const updateActorV0 = async (req, res) => {
+  try{
+    const actor = await Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true })
+    res.json(actor)
+  }
+  catch(err){
+    res.send(err)
+  }
+}
+
+const updateActor = async (req, res) => {
   // Check that the user is the proper actor and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, { new: true }, (err, actor) => {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err)
-      } else {
-        res.status(500).send(err)
-      }
-    } else {
+  try{
+    const actor = await Actor.findOneAndUpdate({ _id: req.params.actorId }, req.body, {new:true})
+    if(actor){
       res.json(actor)
     }
-  })
+    else{
+      res.status(404).send("Actor not found")
+    }
+  }
+  catch(err){
+    if (err.name === 'ValidationError') {
+      res.status(422).send(err)
+    } else {
+      res.status(500).send(err)
+    }
+  }
 }
 
-const validateActor = (req, res) => {
+const validateActor = async (req, res) => {
   // Check that the user is an Administrator and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
-  console.log('Validating an actor with id: ' + req.params.actorId)
-  Actor.findOneAndUpdate({ _id: req.params.actorId }, { $set: { validated: 'true' } }, { new: true }, (err, actor) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
+  try {
+    const actor = await Actor.findOneAndUpdate({ _id: req.params.actorId }, { validated: 'true' }, { new: true })
+    if (actor) {
       res.json(actor)
     }
-  })
+    else {
+      res.status(404).send("Actor not found")
+    }
+  }
+  catch (err) {
+    res.status(500).send(err)
+  }
 }
 
-const deleteActorV0 = (req, res) => {
-  Actor.deleteOne({ _id: req.params.actorId }, (err, actor) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
+const deleteActorV0 = async (req, res) => {
+  try{
+    const actor = await Actor.deleteOne({ _id: req.params.actorId })
+    res.json({ message: 'Actor successfully deleted' })
+  }
+  catch(err){
+    res.status(500).send(err)
+  }
+}
+
+const deleteActor = async (req, res) => {
+  try {
+    const deletionResponse = await Actor.deleteOne({ _id: req.params.actorId })
+    if (deletionResponse.deletedCount > 0) {
       res.json({ message: 'Actor successfully deleted' })
     }
-  })
+    else {
+      res.status(404).send("Actor could not be deleted")
+    }
+  }
+  catch (err) {
+    res.status(500).send(err)
+  }
 }
 
-export {listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0}
+export {listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0, deleteActor}

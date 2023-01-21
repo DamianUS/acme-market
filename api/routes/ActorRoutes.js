@@ -1,5 +1,5 @@
 'use strict'
-import { listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0 } from '../controllers/ActorController.js';
+import { listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0, deleteActor } from '../controllers/ActorController.js';
 export default function (app) {
   
   app.route('/v0/actors')
@@ -40,7 +40,7 @@ export default function (app) {
   app.route('/v1/actors/:actorId')
     .get(readActor)
     .put(updateActor)
-    // .delete(actors.delete_an_actor)
+    .delete(deleteActor)
 
   /**
    * Put to Validate a clerk by actorId
@@ -52,5 +52,5 @@ export default function (app) {
    * @param {string} actorId
    * */
   app.route('/v1/actors/:actorId/validate')
-    .put(validateActor)
+    .patch(validateActor)
 }
