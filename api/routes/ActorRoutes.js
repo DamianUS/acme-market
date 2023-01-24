@@ -1,5 +1,7 @@
 'use strict'
 import { listActors, listActors_V0, createActor, createActor_V0, readActor, readActorV0, updateActor, updateActorV0, validateActor, deleteActorV0, deleteActor } from '../controllers/ActorController.js';
+import { createValidator } from '../controllers/validators/ActorValidator.js'
+import handleExpressValidation from '../middlewares/ValidationHandlingMiddleware.js'
 export default function (app) {
   
   app.route('/v0/actors')
@@ -20,7 +22,11 @@ export default function (app) {
   */
   app.route('/v1/actors')
     .get(listActors)
-    .post(createActor)
+    .post(
+      createValidator(),
+      handleExpressValidation,
+      createActor
+      )
 
   app.route('/v0/actors/:actorId')
     .get(readActorV0)
