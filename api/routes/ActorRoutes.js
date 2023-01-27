@@ -23,7 +23,7 @@ export default function (app) {
   app.route('/v1/actors')
     .get(listActors)
     .post(
-      creationValidator(),
+      creationValidator,
       handleExpressValidation,
       createActor
       )
