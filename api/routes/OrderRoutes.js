@@ -19,7 +19,7 @@ export default function (app) {
   app.route('/v1/orders')
   // .get(order.list_all_orders)
     .post(
-      creationValidator(),
+      creationValidator,
       handleExpressValidation,
       createOrder
       )

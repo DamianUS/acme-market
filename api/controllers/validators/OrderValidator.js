@@ -51,21 +51,18 @@ const _checkSkuAndNameExistAndMatch = async (value, { req })  => {
     }
 }
 
-const creationValidator = () => {
-    return [
-      check('consumerName').exists({ checkNull: true, checkFalsy: true }).isString().trim().escape(),
-      check('consumer').exists({ checkNull: true, checkFalsy: true }).isMongoId().trim().escape(),
-      check('consumerName')
-        .custom(_checkCustomerNameValid),
-      check('orderedItems').exists({ checkNull: true, checkFalsy: true }).isArray(),
-      check('orderedItems').custom((value, { req }) => value.length > 0).withMessage("At least one item is required"),
-      check('orderedItems.*.quantity').exists({ checkNull: true, checkFalsy: true }).isInt({ min: 1 }),
-      check('orderedItems.*.price').exists({ checkNull: true }).isNumeric().toFloat(),
-      check('orderedItems.*.name').exists({ checkNull: true, checkFalsy: true }).isString().trim().escape(),
-      check('orderedItems').custom(_checkSkuAndNameExistAndMatch),
-      check('total').exists({ checkNull: true, checkFalsy: true }).isNumeric().toFloat(),
-      check('total').custom(_checkTotalValid).withMessage("Totals don't match"),
-    ]
-}
+const creationValidator =  [
+  check('consumerName').exists({ checkNull: true, checkFalsy: true }).isString().trim().escape(),
+  check('consumer').exists({ checkNull: true, checkFalsy: true }).isMongoId().trim().escape(),
+  check('consumerName').custom(_checkCustomerNameValid),
+  check('orderedItems').exists({ checkNull: true, checkFalsy: true }).isArray(),
+  check('orderedItems').custom((value, { req }) => value.length > 0).withMessage("At least one item is required"),
+  check('orderedItems.*.quantity').exists({ checkNull: true, checkFalsy: true }).isInt({ min: 1 }),
+  check('orderedItems.*.price').exists({ checkNull: true }).isNumeric().toFloat(),
+  check('orderedItems.*.name').exists({ checkNull: true, checkFalsy: true }).isString().trim().escape(),
+  check('orderedItems').custom(_checkSkuAndNameExistAndMatch),
+  check('total').exists({ checkNull: true, checkFalsy: true }).isNumeric().toFloat(),
+  check('total').custom(_checkTotalValid).withMessage("Totals don't match"),
+]
 
 export { creationValidator }
