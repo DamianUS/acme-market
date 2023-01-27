@@ -52,11 +52,6 @@ const orderSchema = new mongoose.Schema({
   orderedItems: [orderItemSchema]
 }, { strict: false })
 
-orderSchema.index({ consumer: 1 })
-orderSchema.index({ clerk: 1 })
-orderSchema.index({ cancelationMoment: 1 })
-orderSchema.index({ deliveryMoment: 1 })
-
 // Execute before each item.save() call
 orderSchema.pre('save', function (callback) {
   const newOrder = this

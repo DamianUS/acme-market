@@ -52,9 +52,6 @@ const itemSchema = new mongoose.Schema({
   }
 }, { strict: false })
 
-itemSchema.index({ category: 1, price: 1 }) // 1 ascending,  -1 descending
-itemSchema.index({ name: 'text', description: 'text', sku: 'text' })
-
 // Execute before each item.save() call
 itemSchema.pre('save', function (callback) {
   const newItem = this
