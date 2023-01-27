@@ -1,6 +1,7 @@
 'use strict'
 import { listOrders, listMyOrders, createOrderV0, createOrder, readOrder, updateOrderV0, updateOrder, deleteOrderV0, deleteOrder, searchOrders } from '../controllers/OrderController.js' 
-
+import { creationValidator } from '../controllers/validators/OrderValidator.js'
+import handleExpressValidation from '../middlewares/ValidationHandlingMiddleware.js'
 export default function (app) {
 
   app.route('/v0/orders')
@@ -17,7 +18,11 @@ export default function (app) {
   */
   app.route('/v1/orders')
   // .get(order.list_all_orders)
-    .post(createOrder)
+    .post(
+      creationValidator(),
+      handleExpressValidation,
+      createOrder
+      )
 
   /**
    * Search engine for orders

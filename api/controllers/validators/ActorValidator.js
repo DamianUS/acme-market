@@ -1,6 +1,6 @@
 import { check } from 'express-validator'
 
-const createValidator = () => {
+const creationValidator = () => {
     return [
       check('name').exists({ checkNull: true, checkFalsy: true }).isString().trim().escape(),
       check('surname').exists({ checkNull: true, checkFalsy: true }).isString().trim().escape(),
@@ -14,4 +14,4 @@ const createValidator = () => {
     ]
 }
 
-export { createValidator }
+export { creationValidator }

@@ -20,7 +20,12 @@
               "action": "equal",
               "value": "200"
             }
-          ]
+          ],
+          "runOptions": {
+            "delay": 0,
+            "iterations": 1,
+            "dataFilePath": ""
+          }
         }
       },
       {
@@ -44,7 +49,12 @@
     ],
     "settings": {
       "headers": [],
-      "tests": []
+      "tests": [],
+      "runOptions": {
+        "delay": 0,
+        "iterations": 1,
+        "dataFilePath": ""
+      }
     }
   },
   {

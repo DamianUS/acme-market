@@ -37,6 +37,7 @@ const createOrder = async (req, res) => {
   // Check that user is a Customer and if not: res.status(403);
   // "an access token is valid, but requires more privileges"
   const newOrder = new Order(req.body)
+  // No tiene sentido que se pida al front-end el consumer name
   try {
     const order = await newOrder.save()
     res.json(order)
