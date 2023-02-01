@@ -1,0 +1,1146 @@
+{
+	"info": {
+		"_postman_id": "9eac47db-674b-4743-b3eb-e558f95dbdef",
+		"name": "ACME-Market-L03-S02",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18580937"
+	},
+	"item": [
+		{
+			"name": "POST ACTOR-CUSTOMER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"customerId\", jsonData._id);",
+							"pm.environment.set(\"customerName\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"CustomerName\",\n\t\"surname\": \"CustomerSurname\",\n\t\"email\": \"customer@fakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345678\",\n\t\"role\": \"CUSTOMER\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ACTOR-CUSTOMER email not valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"CustomerName\",\n\t\"surname\": \"CustomerSurname\",\n\t\"email\": \"customerfakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345678\",\n\t\"role\": \"CUSTOMER\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ACTOR-CLERK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"clerkId\", jsonData._id);",
+							"pm.environment.set(\"clerkName\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"ClerkName\",\n\t\"surname\": \"ClerkSurname\",\n\t\"email\": \"clerk@fakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345679\",\n\t\"role\": \"CLERK\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ACTOR-CUSTOMER2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"customer2Id\", jsonData._id);",
+							"pm.environment.set(\"customer2Name\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"_id\": \"5c531bd26c769b42ead5e774\",\n\t\"name\": \"Customer2Name\",\n\t\"surname\": \"CustomerSurname\",\n\t\"email\": \"customer2@fakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345678\",\n\t\"role\": \"CUSTOMER\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ACTOR-CLERK2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"clerk2Id\", jsonData._id);",
+							"pm.environment.set(\"clerk2Name\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"_id\": \"5c531bd26c769b42ead5e799\",\n\t\"name\": \"Clerk2Name\",\n\t\"surname\": \"Clerk2Surname\",\n\t\"email\": \"clerk2@fakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345679\",\n\t\"role\": \"CLERK\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ACTOR-ADMIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"adminId\", jsonData._id);",
+							"pm.environment.set(\"adminName\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"AdminName\",\n\t\"surname\": \"AdminSurname\",\n\t\"email\": \"admin@fakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345670\",\n\t\"role\": \"ADMINISTRATOR\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ACTOR-CUSTOMER2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"customer2Id\", jsonData._id);",
+							"pm.environment.set(\"customer2Name\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"CustomerEDITEDName\",\n\t\"surname\": \"CustomerSurname\",\n\t\"email\": \"customer2@fakemail.com\",\n\t\"password\": \"my_Pass!!!123\",\n\t\"phone\": \"+34612345678\",\n\t\"role\": \"CUSTOMER\",\n\t\"address\": \"myAddress\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/actors/{{customer2Id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors",
+						"{{customer2Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL ACTORS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var actors = pm.response.json();",
+							"pm.test(\"There are at least 5 actors\", function () {",
+							"    pm.expect(actors.length).to.gte(5);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/actors/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"actors",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CATEGORY MOBILE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"categoryMobileId\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"_id\": \"5b1124a6e373da9109d990e5\",\n\t\"name\": \"Mobile devices\",\n\t\"description\": \"Mobile devices and tablets\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v0/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v0",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CATEGORY LAPTOP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"categoryLaptopId\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"_id\": \"5c540db609d0f74808f00805\",\n\t\"name\": \"Laptops\",\n\t\"description\": \"Laptops\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v0/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v0",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET CATEGORIES",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var categories = pm.response.json();",
+							"pm.test(\"There are at least 2 categories\", function () {",
+							"    pm.expect(categories.length).to.gte(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v0/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v0",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ITEM iPhone 14",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"iPhoneId\", jsonData._id);",
+							"pm.environment.set(\"iPhoneName\", jsonData.name);",
+							"pm.environment.set(\"iPhoneSKU\", jsonData.sku);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"63d936aa1e33c2cb2a68eeec\",\n    \"deleted\": \"false\",\n    \"name\": \"iPhone 14\",\n    \"description\": \"Ten years anniversary model\",\n    \"price\": 1000,\n    \"category\": \"{{categoryMobileId}}\",\n    \"comments\":[\n\t    {\n\t    \t\"title\": \"Really happy\",\n  \t\t\t\"commentText\": \"Face ID works perfectly\",\n  \t\t\t\"stars\": 5\n  \t\t},\n \t\t{\n \t\t    \"title\": \"One less thing...\",\n  \t\t\t\"commentText\": \"I miss the home button\",\n  \t\t\t\"stars\": 4,\n  \t\t\t\"author\": \"{{customer2Name}}\"\n \t\t}\n \t]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ITEM Galaxy S22",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"samsungId\", jsonData._id);",
+							"pm.environment.set(\"samsungName\", jsonData.name);",
+							"pm.environment.set(\"samsungSKU\", jsonData.sku);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"_id\": \"63d936aa1e33c2cb2a68eef0\",\n\t\t    \"deleted\": \"false\",\n\t\t    \"name\": \"Samsung Galaxy S22\",\n\t\t    \"description\": \"Flagship model from Samsung\",\n\t\t    \"price\": 800,\n\t\t    \"category\": \"{{categoryMobileId}}\",\n\t\t    \"comments\":[\n\t\t\t    {\n\t\t\t    \t\"title\": \"Great\",\n\t\t  \t\t\t\"commentText\": \"OLED display looks sharp!\",\n\t\t  \t\t\t\"stars\": 5\n\t\t  \t\t},\n\t\t \t\t{\n\t\t \t\t    \"title\": \"Very good device.\",\n\t\t  \t\t\t\"commentText\": \"Battery life improved from previous model\",\n\t\t  \t\t\t\"stars\": 4\n\t\t \t\t}\n\t\t \t]\n\t\t}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ITEM Macbook Air",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"macbookId\", jsonData._id);",
+							"pm.environment.set(\"macbookName\", jsonData.name);",
+							"pm.environment.set(\"macbookSKU\", jsonData.sku);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t    \"_id\": \"5c5410a9f0481f4870337184\",\n\t\t    \"deleted\": \"false\",\n\t\t    \"name\": \"Mac Book Air\",\n\t\t    \"description\": \"Thin laptop from Apple\",\n\t\t    \"price\": 800,\n\t\t    \"category\": \"{{categoryLaptopId}}\",\n\t\t    \"comments\":[\n\t\t\t    {\n\t\t\t    \t\"title\": \"Great\",\n\t\t  \t\t\t\"commentText\": \"New keyboard is smooth\",\n\t\t  \t\t\t\"stars\": 5\n\t\t  \t\t},\n\t\t \t\t{\n\t\t \t\t    \"title\": \"Very good device.\",\n\t\t  \t\t\t\"commentText\": \"Frames around the screen are thinner than ever\",\n\t\t  \t\t\t\"stars\": 4\n\t\t \t\t}\n\t\t \t]\n\t\t}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ITEM Macbook Air",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"macbookId\", jsonData._id);",
+							"pm.environment.set(\"macbookName\", jsonData.name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t    \"deleted\": \"false\",\n\t\t    \"name\": \"MacBook Air M1\",\n\t\t    \"description\": \"Thin laptop from Apple\",\n\t\t    \"price\": 1600,\n\t\t    \"category\": \"{{categoryLaptopId}}\",\n\t\t    \"comments\":[\n\t\t\t    {\n\t\t\t    \t\"title\": \"Great\",\n\t\t  \t\t\t\"commentText\": \"New keyboard is smooth\",\n\t\t  \t\t\t\"stars\": 5\n\t\t  \t\t},\n\t\t \t\t{\n\t\t \t\t    \"title\": \"Very good device.\",\n\t\t  \t\t\t\"commentText\": \"Frames around the screen are thinner than ever\",\n\t\t  \t\t\t\"stars\": 4\n\t\t \t\t}\n\t\t \t]\n\t\t}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/items/{{macbookId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items",
+						"{{macbookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ITEMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var items = pm.response.json();",
+							"pm.test(\"There are at least 3 items\", function () {",
+							"    pm.expect(items.length).to.gte(3);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/items/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET \"SEARCH\" ITEMS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/items/search?sortedBy=category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items",
+						"search"
+					],
+					"query": [
+						{
+							"key": "sortedBy",
+							"value": "category"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ITEM",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"CustomerEDITEDName\",\n\t\"surname\": \"CustomerSurname\",\n\t\"email\": \"customer@fakemail.com\",\n\t\"password\": \"mypass\",\n\t\"phone\": \"+34612345678\",\n\t\"role\": \"CUSTOMER\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/items/{{macbookId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items",
+						"{{macbookId}}"
+					]
+				},
+				"description": "Include previously generated id"
+			},
+			"response": []
+		},
+		{
+			"name": "POST ORDER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"orderId\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"consumerName\": \"{{customerName}}\",\n    \"deliveryAddress\": \"Dirección de envío\",\n    \"total\": 1000,\n    \"consumer\": \"{{customerId}}\",\n    \"creditCard\": {\n    \t\"holder\": \"{{customerName}}\",\n    \t\"brand\": \"MasterCard\",\n    \t\"number\": \"1234 1234 1234 1234\",\n    \t\"expirationMonth\":1,\n    \t\"expirationYear\": 2020,\n    \t\"cvv\": 123\n    },\n    \"comments\":[\"Comentario 1\", \"Comentario 2\"],\n    \"orderedItems\": [\n        {\n            \"sku\": \"{{iPhoneSKU}}\",\n            \"served\": false,\n            \"name\": \"{{iPhoneName}}\",\n            \"quantity\": 1,\n            \"price\": 1000\n        }\n    ]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ORDER itemSKU not valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"consumerName\": \"{{customerName}}\",\n    \"deliveryAddress\": \"Dirección de envío\",\n    \"total\": 1000,\n    \"consumer\": \"{{customerId}}\",\n    \"creditCard\": {\n    \t\"holder\": \"{{customerName}}\",\n    \t\"brand\": \"MasterCard\",\n    \t\"number\": \"1234 1234 1234 1234\",\n    \t\"expirationMonth\":1,\n    \t\"expirationYear\": 2020,\n    \t\"cvv\": 123\n    },\n    \"comments\":[\"Comentario 1\", \"Comentario 2\"],\n    \"orderedItems\": [\n        {\n            \"sku\": \"INVALID\",\n            \"served\": false,\n            \"name\": \"{{iPhoneName}}\",\n            \"quantity\": 1,\n            \"price\": 1000\n            \n        }\n    ]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ORDER Customer name invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"consumerName\": \"INVALID\",\n    \"deliveryAddress\": \"Dirección de envío\",\n    \"total\": 1000,\n    \"consumer\": \"{{customerName}}\",\n    \"creditCard\": {\n    \t\"holder\": \"Holder Name\",\n    \t\"brand\": \"MasterCard\",\n    \t\"number\": \"1234 1234 1234 1234\",\n    \t\"expirationMonth\":1,\n    \t\"expirationYear\": 2020,\n    \t\"cvv\": 123\n    },\n    \"comments\":[\"Comentario 1\", \"Comentario 2\"],\n    \"orderedItems\": [\n        {\n            \"sku\": \"{{iPhoneSKU}}\",\n            \"served\": false,\n            \"name\": \"{{iPhoneName}}\",\n            \"quantity\": 1,\n            \"price\": 1000\n            \n        }\n    ]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ORDER Totals Mismatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"consumerName\": \"{{customer2Name}}\",\n    \"deliveryAddress\": \"Mi dirección\",\n    \"total\": 1000,\n    \"consumer\": \"{{customer2Id}}\",\n    \"creditCard\": {\n    \t\"holder\": \"{{customer2Name}}\",\n    \t\"brand\": \"MasterCard\",\n    \t\"number\": \"1234 1234 1234 1234\",\n    \t\"expirationMonth\":1,\n    \t\"expirationYear\": 2020,\n    \t\"cvv\": 123\n    },\n    \"comments\":[\"Comentario 1\", \"Comentario 2\"],\n    \"orderedItems\": [\n        {\n            \"sku\": \"{{iPhoneId}}\",\n            \"served\": false,\n            \"name\": \"{{iPhoneName}}\",\n            \"quantity\": 1,\n            \"price\": 1000\n            \n        },\n        {\n            \"sku\": \"{{samsungSKU}}\",\n            \"served\": false,\n            \"name\": \"{{samsungName}}\",\n            \"quantity\": 2,\n            \"price\": 800\n            \n        }\n    ]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ORDER 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"order2Id\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"consumerName\": \"{{customer2Name}}\",\n    \"deliveryAddress\": \"Mi dirección\",\n    \"total\": 2600,\n    \"consumer\": \"{{customer2Id}}\",\n    \"creditCard\": {\n    \t\"holder\": \"{{customer2Name}}\",\n    \t\"brand\": \"MasterCard\",\n    \t\"number\": \"1234 1234 1234 1234\",\n    \t\"expirationMonth\":1,\n    \t\"expirationYear\": 2020,\n    \t\"cvv\": 123\n    },\n    \"comments\":[\"Comentario 1\", \"Comentario 2\"],\n    \"orderedItems\": [\n        {\n            \"sku\": \"{{iPhoneSKU}}\",\n            \"served\": false,\n            \"name\": \"{{iPhoneName}}\",\n            \"quantity\": 1,\n            \"price\": 1000\n        },\n        {\n            \"sku\": \"{{samsungSKU}}\",\n            \"served\": false,\n            \"name\": \"{{samsungName}}\",\n            \"quantity\": 2,\n            \"price\": 800\n            \n        }\n    ]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ORDER 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"order2Id\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"consumerName\": \"{{customer2Name}}\",\n    \"deliveryAddress\": \"Mi dirección\",\n    \"total\": 1600,\n    \"consumer\": \"{{customer2Id}}\",\n    \"creditCard\": {\n    \t\"holder\": \"{{customer2Name}}\",\n    \t\"brand\": \"MasterCard\",\n    \t\"number\": \"1234 1234 1234 1234\",\n    \t\"expirationMonth\":1,\n    \t\"expirationYear\": 2020,\n    \t\"cvv\": 123\n    },\n    \"comments\":[\"Comentario 1\", \"Comentario 2\"],\n    \"orderedItems\": [\n        {\n            \"sku\": \"{{samsungSKU}}\",\n            \"served\": false,\n            \"name\": \"{{samsungName}}\",\n            \"quantity\": 2,\n            \"price\": 800\n            \n        }\n    ],\n    \"clerk\": \"{{clerkId}}\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/{{order2Id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						"{{order2Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET \"SEARCH\" ORDERS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var orders = pm.response.json();",
+							"pm.test(\"There are at least 1 order\", function () {",
+							"    pm.expect(orders.length).to.gte(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/orders/search?clerkId={{clerkId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						"search"
+					],
+					"query": [
+						{
+							"key": "clerkId",
+							"value": "{{clerkId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ORDER 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"CustomerEDITEDName\",\n\t\"surname\": \"CustomerSurname\",\n\t\"email\": \"customer@fakemail.com\",\n\t\"password\": \"mypass\",\n\t\"phone\": \"+34612345678\",\n\t\"role\": \"CUSTOMER\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/orders/{{order2Id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders",
+						"{{order2Id}}"
+					]
+				},
+				"description": "Include previously generated id"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "categoryMobileId",
+			"value": ""
+		},
+		{
+			"key": "idCategory",
+			"value": ""
+		}
+	]
+}
