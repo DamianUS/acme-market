@@ -1,0 +1,100 @@
+{ 
+    "_id" : 123.0, 
+    "titulo" : "La La Land", 
+    "imdb" : "tt3783958", 
+    "disponible" : true, 
+    "duracion" : 128.0, 
+    "escenas" : 9.0, 
+    "año" : 2016.0, 
+    "genero" : [
+        "Comedia", 
+        "Musical", 
+        "Romance"
+    ], 
+    "idioma" : "Inglés"
+}
+{ 
+    "_id" : 234.0, 
+    "titulo" : "El día de la bestia", 
+    "imdb" : "tt0112922", 
+    "disponible" : true, 
+    "duracion" : 103.0, 
+    "año" : 1995.0, 
+    "escenas" : 14.0, 
+    "genero" : [
+        "Acción", 
+        "Comedia", 
+        "Terror"
+    ], 
+    "idioma" : "Español"
+}
+{ 
+    "_id" : 345.0, 
+    "titulo" : "RocknRolla", 
+    "imdb" : "tt1032755", 
+    "disponible" : false, 
+    "duracion" : 114.0, 
+    "escenas" : 20.0, 
+    "año" : 2008.0, 
+    "genero" : [
+        "Acción", 
+        "Crimen", 
+        "Thriller"
+    ], 
+    "idioma" : "Inglés"
+}
+{ 
+    "_id" : 456.0, 
+    "titulo" : "Cold War", 
+    "imdb" : "tt6543652", 
+    "disponible" : true, 
+    "duracion" : 89.0, 
+    "escenas" : 10.0, 
+    "año" : 2018.0, 
+    "genero" : [
+        "Drama", 
+        "Romance", 
+        "Musical"
+    ], 
+    "idioma" : "Polaco"
+}
+{ 
+    "_id" : 567.0, 
+    "titulo" : "Primer", 
+    "imdb" : "tt0390384", 
+    "disponible" : false, 
+    "duracion" : 77.0, 
+    "escenas" : 12.0, 
+    "año" : 2004.0, 
+    "genero" : [
+        "Ciencia ficción", 
+        "Thriller", 
+        "Drama"
+    ], 
+    "idioma" : "Inglés"
+}
+{ 
+    "_id" : 1232.0, 
+    "titulo" : "La La Land", 
+    "imdb" : "tt3783958", 
+    "disponible" : true, 
+    "duracion" : 128.0, 
+    "escenas" : 9.0, 
+    "año" : 2016.0, 
+    "genero" : [
+        "Comedia", 
+        "Musical", 
+        "Romance"
+    ], 
+    "idioma" : "Inglés", 
+    "precio" : 19.9, 
+    "security" : 0.0, 
+    "otrosPrecios" : {
+        "security" : 1.0, 
+        "precioClub" : 9.9, 
+        "precioProveedor" : {
+            "security" : 2.0, 
+            "precio" : 5.0
+        }
+    }
+}

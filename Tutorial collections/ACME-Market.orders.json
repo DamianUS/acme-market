@@ -1,0 +1,557 @@
+{ 
+    "_id" : ObjectId("5c6bc1af5f8ba61aa562218a"), 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "consumerName" : "ConsumerName", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212456"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "served" : false, 
+            "_id" : ObjectId("5c6bc1af5f8ba61aa562218b"), 
+            "sku" : "123456", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000)
+        }, 
+        {
+            "served" : false, 
+            "_id" : ObjectId("5c6bc1af5f8ba61aa562218b"), 
+            "sku" : "123456", 
+            "name" : "iPhone XR", 
+            "quantity" : NumberInt(2), 
+            "price" : NumberInt(1200)
+        }
+    ], 
+    "placementMoment" : ISODate("2019-02-19T08:43:27.614+0000"), 
+    "cancelationMoment" : ISODate("2019-02-22T08:43:27.614+0000"), 
+    "ticker" : "190219-XDWOuB", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c5411d0f0481f4870337187"), 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "consumerName" : "Alejandro", 
+    "deliveryAddress" : "Mi dirección", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212458"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "served" : false, 
+            "_id" : ObjectId("5c6bc2f35f8ba61aa562219f"), 
+            "sku" : "123456", 
+            "name" : "iPhone XR", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000)
+        }, 
+        {
+            "served" : false, 
+            "_id" : ObjectId("5c6bc2f35f8ba61aa562219e"), 
+            "sku" : "654321", 
+            "name" : "Galaxy S8", 
+            "quantity" : NumberInt(2), 
+            "price" : NumberInt(800)
+        }, 
+        {
+            "served" : false, 
+            "_id" : ObjectId("5c6bc2f35f8ba61aa562219d"), 
+            "sku" : "abcde", 
+            "name" : "Macbook Air", 
+            "quantity" : NumberInt(2), 
+            "price" : NumberInt(1600)
+        }
+    ], 
+    "placementMoment" : ISODate("2019-02-19T08:48:47.510+0000"), 
+    "ticker" : "190219-UyO6Nq", 
+    "__v" : NumberInt(0), 
+    "clerk" : ObjectId("5c531bd26c769b42ead5e799")
+}
+{ 
+    "_id" : ObjectId("5c6ed19c35ad611a2618200a"), 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "consumerName" : "ConsumerName", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(300), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212456"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "served" : false, 
+            "_id" : ObjectId("5c6bc1af5f8ba61aa562218b"), 
+            "sku" : "123456", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(300)
+        }
+    ], 
+    "placementMoment" : ISODate("2019-02-19T08:43:27.614+0000"), 
+    "ticker" : "210219-XDWOuB", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c2ca133fac23414f7a6f133"), 
+    "ticker" : "123401-AAAA", 
+    "consumerName" : "Alejandro", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212456"), 
+    "clerk" : ObjectId("5c6bc1655f8ba61aa5622179"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "ze-cdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2ca133fac23414f7a6f134"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-02-02T11:32:03.380+0000"), 
+    "deliveryMoment" : ISODate("2019-02-21T11:32:03.380+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c2cd4b579616617de944974"), 
+    "ticker" : "190102-VSazh6", 
+    "consumerName" : "Alejandro", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(500), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212456"), 
+    "clerk" : ObjectId("5c6bc1655f8ba61aa5622179"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-02-02T15:11:49.463+0000"), 
+    "deliveryMoment" : ISODate("2019-02-22T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7127c443955613c5d312e3"), 
+    "ticker" : "190102-XXXXXX", 
+    "consumerName" : "Alejandro", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(500), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212456"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone 6", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(500), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-02-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-02-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c712a1443955613c5d312ee"), 
+    "ticker" : "190102-YYYYY", 
+    "consumerName" : "Daria", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(900), 
+    "consumer" : ObjectId("5a2523f2d8e08f6803212456"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone XR", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(900), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-01-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c712a2d43955613c5d312ef"), 
+    "ticker" : "190102-ZZZZZ", 
+    "consumerName" : "Javier", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124aa"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-01-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c712b2d43955613c5d312fb"), 
+    "ticker" : "190102-WWW", 
+    "consumerName" : "Victoria", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124bb"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-01-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c71527443955613c5d31345"), 
+    "ticker" : "190102-AAAA", 
+    "consumerName" : "Victoria", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124bb"), 
+    "clerk" : ObjectId("5c531bd26c769b42ead5e799"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "deliveryMoment" : ISODate("2019-01-12T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c71528543955613c5d31346"), 
+    "ticker" : "190102-BBBB", 
+    "consumerName" : "Javier", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124aa"), 
+    "clerk" : ObjectId("5c531bd26c769b42ead5e799"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "deliveryMoment" : ISODate("2019-02-02T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c71529843955613c5d31347"), 
+    "ticker" : "190102-CCCC", 
+    "consumerName" : "Agustin", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124cc"), 
+    "clerk" : ObjectId("5c531bd26c769b42ead5e799"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-02-02T15:11:49.463+0000"), 
+    "deliveryMoment" : ISODate("2019-02-08T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7152a643955613c5d31348"), 
+    "ticker" : "190102-DDDD", 
+    "consumerName" : "Matea", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124ab"), 
+    "clerk" : ObjectId("5c6bc1715f8ba61aa562217c"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "deliveryMoment" : ISODate("2019-01-19T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7152d843955613c5d31349"), 
+    "ticker" : "190102-YYYYZ", 
+    "consumerName" : "Javier", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124aa"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-01-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c71534f43955613c5d3134f"), 
+    "ticker" : "190102-ABCD", 
+    "consumerName" : "Fernando", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124dd"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-01-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7153ba43955613c5d31353"), 
+    "ticker" : "190102-QWER", 
+    "consumerName" : "Javier", 
+    "deliveryAddress" : "Dirección de envío", 
+    "total" : NumberInt(1000), 
+    "consumer" : ObjectId("5a2523f2d8e08f68032124aa"), 
+    "creditCard" : {
+        "holder" : "Holder Name", 
+        "brand" : "MasterCard", 
+        "number" : "1234 1234 1234 1234", 
+        "expirationMonth" : NumberInt(1), 
+        "expirationYear" : NumberInt(2020), 
+        "cvv" : NumberInt(123)
+    }, 
+    "orderedItems" : [
+        {
+            "sku" : "zecdef", 
+            "name" : "iPhone X", 
+            "quantity" : NumberInt(1), 
+            "price" : NumberInt(1000), 
+            "_id" : ObjectId("5c2cd4b579616617de944975"), 
+            "served" : false
+        }
+    ], 
+    "comments" : [
+        "Comentario 1", 
+        "Comentario 2"
+    ], 
+    "placementMoment" : ISODate("2019-01-02T15:11:49.463+0000"), 
+    "cancelationMoment" : ISODate("2019-01-10T15:11:49.463+0000"), 
+    "__v" : NumberInt(0)
+}
