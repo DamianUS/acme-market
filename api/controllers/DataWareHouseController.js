@@ -3,23 +3,23 @@ import DataWareHouse from '../models/DataWareHouseModel.js'
 import { restartDataWarehouseJob } from '../services/DataWarehouseService.js'
 
 const listIndicators = (req, res) => {
-  DataWareHouse.find().sort('-computationMoment').exec((err, indicators) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.json(indicators)
-    }
-  })
+  try{
+    const indicators = DataWareHouse.find().sort('-computationMoment').exec()
+    res.json(indicators)
+  }
+  catch(err){
+    res.send(err)
+  }
 }
 
 const lastIndicator = (req, res) => {
-  DataWareHouse.find().sort('-computationMoment').limit(1).exec((err, indicators) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.json(indicators)
-    }
-  })
+  try {
+    const indicator = DataWareHouse.find().sort('-computationMoment').limit(1).exec()
+    res.json(indicator)
+  }
+  catch (err) {
+    res.send(err)
+  }
 }
 
 const rebuildPeriod = (req, res) => {
