@@ -7,7 +7,7 @@ import categoryRoutes from './api/routes/CategoryRoutes.js'
 import orderRoutes from './api/routes/OrderRoutes.js'
 import storageRoutes from './api/routes/StorageRoutes.js'
 import dataWarehouseRoutes from './api/routes/DataWareHouseRoutes.js'
-import { createDataWareHouseJob } from './api/controllers/DataWareHouseController.js'
+import { initializeDataWarehouseJob } from './api/services/DataWarehouseService.js'
 import initMongoDBConnection from './api/config/mongoose.js'
 dotenv.config()
 
@@ -33,4 +33,4 @@ catch(err){
   console.error('ACME-Market RESTful API could not connect to DB ' + err)
 }
 
-createDataWareHouseJob()
+initializeDataWarehouseJob()

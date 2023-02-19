@@ -1,5 +1,5 @@
 'use strict'
-import { listIndicators, lastIndicator, createDataWareHouseJob, rebuildPeriod } from '../controllers/DataWareHouseController.js';
+import { listIndicators, lastIndicator, rebuildPeriod } from '../controllers/DataWareHouseController.js';
 
 export default function (app) {
   /**
