@@ -50,7 +50,8 @@ const initializeDataWarehouseJob = () => {
     }, null, true, 'Europe/Madrid')
 }
 
-const restartDataWarehouseJob = (period, dataWarehouseJob) => {
+const restartDataWarehouseJob = (period) => {
+    defaultPeriod = period
     dataWarehouseJob.setTime(new cron.CronTime(period))
     dataWarehouseJob.start()
 }

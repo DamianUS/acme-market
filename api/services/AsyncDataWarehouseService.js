@@ -47,6 +47,7 @@ const initializeDataWarehouseJob = () => {
 }
 
 const restartDataWarehouseJob = (period) => {
+    defaultPeriod = period
     computeDataWareHouseJob.setTime(new cron.CronTime(period))
     computeDataWareHouseJob.start()
 }
