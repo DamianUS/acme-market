@@ -1,6 +1,6 @@
 
 import DataWareHouse from '../models/DataWareHouseModel.js'
-import { restartDataWarehouseJob } from '../services/DataWarehouseService.js'
+import { restartDataWarehouseJob } from '../services/DataWarehouseServiceProvider.js'
 
 const listIndicators = async (req, res) => {
   try{

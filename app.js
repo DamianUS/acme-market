@@ -7,7 +7,7 @@ import categoryRoutes from './api/routes/CategoryRoutes.js'
 import orderRoutes from './api/routes/OrderRoutes.js'
 import storageRoutes from './api/routes/StorageRoutes.js'
 import dataWarehouseRoutes from './api/routes/DataWareHouseRoutes.js'
-import { initializeDataWarehouseJob } from './api/services/DataWarehouseService.js'
+import { initializeDataWarehouseJob } from './api/services/DataWarehouseServiceProvider.js'
 import initMongoDBConnection from './api/config/mongoose.js'
 dotenv.config()
 
